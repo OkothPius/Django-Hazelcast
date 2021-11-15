@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+{% load custom_tags %}
+
+{% block content %}
+
+  {% for entry in entries %}
+    <li>{{ entry }} is in {{ entries|get_value:entry }} department</li>
+  {% endfor %}
+
+{% endblock content %}

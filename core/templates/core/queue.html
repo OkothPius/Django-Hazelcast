@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+{% load custom_tags %}
+
+{% block content %}
+
+  {% for entry in entries %}
+    <li>Consumed {{ entry }}</li>
+  {% endfor %}
+
+{% endblock content %}
