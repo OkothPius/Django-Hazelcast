@@ -3,7 +3,11 @@ from django.forms import ModelForm
 from .models import Customer, Client
 
 import hazelcast
-client = hazelcast.HazelcastClient()
+client = hazelcast.HazelcastClient(
+    cluster_name="pr-3072",
+    cloud_discovery_token="eVT8mT5NIUr3xHXJPqpvpemEYajXsE8T7PFD2XOoclLuqGgqwb",
+    statistics_enabled=True,
+)
 personnel_map = client.get_map("personnel-map").blocking()
 
 # Using a Queue in Hazelcast

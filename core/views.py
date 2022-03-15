@@ -8,7 +8,11 @@ from django.views.generic.edit import FormView
 
 from .forms import CustomerForm, ClientForm
 
-client = hazelcast.HazelcastClient()
+client = hazelcast.HazelcastClient(
+    cluster_name="pr-3072",
+    cloud_discovery_token="eVT8mT5NIUr3xHXJPqpvpemEYajXsE8T7PFD2XOoclLuqGgqwb",
+    statistics_enabled=True,
+)
 
 # def get_client(write=False):
 #
