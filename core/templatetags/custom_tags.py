@@ -7,7 +7,6 @@ def get_value(dict, key):
 
 register.filter('get_value', get_value)
 
-
 # @register.simple_tag
 # def label(value, key):
 #     return value[key]

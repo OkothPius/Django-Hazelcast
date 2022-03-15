@@ -1,33 +1,12 @@
-import time
 import hazelcast
-import threading
-from functools import wraps
-from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect, reverse
-from django.views.generic.edit import FormView
-
-from .forms import CustomerForm, ClientForm
+from .forms import EmployeeForm, ClientForm
 
 client = hazelcast.HazelcastClient(
     cluster_name="pr-3072",
-    cloud_discovery_token="eVT8mT5NIUr3xHXJPqpvpemEYajXsE8T7PFD2XOoclLuqGgqwb",
+    cloud_discovery_token="o6TcbFzG7dFi0oReJ6f3rESCufkRxCf4rxvNEodGOnrgyj8u7Q",
     statistics_enabled=True,
 )
-
-# def get_client(write=False):
-#
-#     def wrapper(method):
-#
-#         @wraps(method)
-#         def wrapped(self, key, *args, **kwargs):
-#             version = kwargs.pop('version', None)
-#             client = self.get_client(key, write=write)
-#             key = self.make_key(key, version=version)
-#             return method(self, client, key, *args, **kwargs)
-#
-#         return wrapped
-#
-#     return wrapper
 
 # Using a Map in Hazelcast
 personnel_map = client.get_map("personnel-map").blocking()
@@ -45,12 +24,12 @@ def get_map(request):
 # Writing data to Hazelcast Map
 def put_map(request):
     if request.method == 'POST':
-        form = CustomerForm(request.POST)
+        form = EmployeeForm(request.POST)
         if form.is_valid():
             form.save(request.POST)
             return redirect('names')
     else:
-        form = CustomerForm()
+        form = EmployeeForm()
     return render(request, 'core/details.html', {'form' : form})
 
 
@@ -85,3 +64,6 @@ def create_topic(request):
             context = topic.publish("Message " + str(i))
 
         return render(request, 'core/topic.html', context)
+
+
+client.shutdown()

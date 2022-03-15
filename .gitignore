@@ -37,6 +37,7 @@ lib64/
 parts/
 sdist/
 var/
+hazelcast-cloud-python-sample-client-pr-3072-default/
 wheels/
 share/python-wheels/
 *.egg-info/

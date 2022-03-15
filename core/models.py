@@ -1,14 +1,14 @@
 from django.db import models
-# from .views import personnel_map
-import hazelcast
-client = hazelcast.HazelcastClient(
-    cluster_name="pr-3072",
-    cloud_discovery_token="eVT8mT5NIUr3xHXJPqpvpemEYajXsE8T7PFD2XOoclLuqGgqwb",
-    statistics_enabled=True,
-)
-personnel_map = client.get_map("personnel-map").blocking()
+# import hazelcast
+#
+# client = hazelcast.HazelcastClient(
+#     cluster_name="pr-3072",
+#     cloud_discovery_token="o6TcbFzG7dFi0oReJ6f3rESCufkRxCf4rxvNEodGOnrgyj8u7Q",
+#     statistics_enabled=True,
+# )
+# personnel_map = client.get_map("personnel-map").blocking()
 
-class Customer(models.Model):
+class Employee(models.Model):
     key = models.CharField(max_length=100)
     value = models.CharField(max_length=100)
 
@@ -24,3 +24,6 @@ class Client(models.Model):
 
     def __str__(self):
         return f'{self.key}'
+
+
+client.shutdown()
